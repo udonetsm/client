@@ -45,6 +45,7 @@ type RequestJSON struct {
 	Upgrade string `json:"newdata"`
 }
 
+// general method
 func (r *RequestJSON) UnpackRequest(req *http.Request) {
 	data, err := io.ReadAll(req.Body)
 	if err != nil {
