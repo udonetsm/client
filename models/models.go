@@ -22,6 +22,11 @@ type YAMLObject struct {
 	DBNM string `yaml:"dbname"`
 }
 
+type CfgDBGetter interface {
+	YAMLCfg(string)
+	GetDB() *gorm.DB
+}
+
 func (y *YAMLObject) YAMLCfg(path string) {
 	data, err := os.ReadFile(path)
 	if err != nil {
@@ -44,11 +49,6 @@ func LoadCfgAndGetDB(yg CfgDBGetter, path string) (db *gorm.DB) {
 	yg.YAMLCfg(path)
 	db = yg.GetDB()
 	return
-}
-
-type CfgDBGetter interface {
-	YAMLCfg(string)
-	GetDB() *gorm.DB
 }
 
 type Contact struct {
