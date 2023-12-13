@@ -4,7 +4,6 @@ import (
 	"bytes"
 
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -27,7 +26,22 @@ func CallUpdateNumber(target, newnumber string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(string(data), resp.Header.Get("ANSWER"))
+}
+
+func CallCreateContact(number, name string, numlist []string) {
+	contact := models.NewContact(number, name, numlist)
+	obj := models.NewObjetToPackJSON(number, contact)
+	obj.Pack(contact)
+	reqOb := &models.RequestJSON{Target: number, Upgrade: obj.Object}
+	data, err := json.Marshal(reqOb)
+	if err != nil {
+		log.Fatal(err)
+	}
+	resp := DoReq("http://localhost:8080/create", http.MethodPost, data)
+	data, err = io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func DoReq(url, method string, data []byte) *http.Response {

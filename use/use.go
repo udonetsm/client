@@ -4,15 +4,10 @@ import (
 	"fmt"
 
 	"github.com/udonetsm/client/http"
-	"github.com/udonetsm/client/models"
 )
 
 func Create(number, name string, numlist []string) {
-	contact := models.NewContact(number, name, numlist)
-	obj := models.NewObjetToPackJSON(number, contact)
-	obj.Pack(contact)
-	//call remote function by http using restAPI
-	//pass obj.Object to it
+	http.CallCreateContact(number, name, numlist)
 }
 
 func UpdateNumber(target, newNumber string) {

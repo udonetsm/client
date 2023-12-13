@@ -69,6 +69,11 @@ type RequestJSON struct {
 	Upgrade string `json:"newdata"`
 }
 
+type PackUnpacker interface {
+	UnpackRequest(*http.Request)
+	Pack(interface{}) []byte
+}
+
 // general method
 func (r *RequestJSON) UnpackRequest(req *http.Request) {
 	data, err := io.ReadAll(req.Body)
@@ -79,6 +84,23 @@ func (r *RequestJSON) UnpackRequest(req *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+func (r *RequestJSON) Pack(data interface{}) (pdata []byte) {
+	d, err := json.Marshal(data)
+	if err != nil {
+		log.Fatal(err)
+	}
+	pdata = d
+	return
+}
+
+func Unpacking(pu PackUnpacker, r *http.Request) {
+	pu.UnpackRequest(r)
+}
+
+func Packing(pu PackUnpacker, data interface{}) (pdata []byte) {
+	pdata = pu.Pack(data)
+	return
 }
 
 func (o *JSONObject) Pack(c *Contact) {
