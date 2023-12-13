@@ -4,13 +4,21 @@ package models
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"os"
 
 	"gopkg.in/yaml.v2"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
+
+type CfgDBGetter interface {
+	YAMLCfg(string)
+	GetDB(*gorm.DB)
+}
 
 type YAMLObject struct {
 	Host string `yaml:"host"`
@@ -27,6 +35,20 @@ func (y *YAMLObject) YAMLCfg(path string) {
 		log.Fatal(err)
 	}
 	err = yaml.Unmarshal(data, y)
+}
+
+func (y *YAMLObject) GetDB(db *gorm.DB) {
+	var err error
+	dsn := fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=%s", y.User, y.Pass, y.Host, y.Port, y.DBNM, y.SSLM)
+	db, err = gorm.Open(postgres.Open(dsn))
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func LoadCfgAndGetDB(yg CfgDBGetter, path string, db *gorm.DB) {
+	yg.YAMLCfg(path)
+	yg.GetDB(db)
 }
 
 type Contact struct {
