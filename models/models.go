@@ -4,7 +4,9 @@ package models
 
 import (
 	"encoding/json"
+	"io"
 	"log"
+	"net/http"
 
 	"gopkg.in/yaml.v2"
 )
@@ -32,6 +34,17 @@ type JSONObject struct {
 type RequestJSON struct {
 	Target  string `json:"target"`
 	Upgrade string `json:"newdata"`
+}
+
+func (r *RequestJSON) UnpackRequest(req *http.Request) {
+	data, err := io.ReadAll(req.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = json.Unmarshal(data, r)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 // Method for unpack yaml testing
