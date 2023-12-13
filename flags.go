@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/udonetsm/client/use"
 )
 
 var (
@@ -17,7 +16,6 @@ var (
 		Use:   "delete",
 		Short: "delete target contact",
 		Run: func(cmd *cobra.Command, args []string) {
-			use.Delete(target)
 		},
 	}
 	//command update includes next subcommands ...
@@ -33,7 +31,6 @@ var (
 		Use:   "number",
 		Short: "change number",
 		Run: func(cmd *cobra.Command, args []string) {
-			use.UpdateNumber(target, newnumber)
 		},
 	}
 
@@ -42,7 +39,6 @@ var (
 		Use:   "name",
 		Short: "change contact name",
 		Run: func(cmd *cobra.Command, args []string) {
-			use.UpdateName(target, newname)
 		},
 	}
 	//show contact info
@@ -55,7 +51,7 @@ var (
 		Use:   "create",
 		Short: "creates new contact",
 		Run: func(cmd *cobra.Command, args []string) {
-			use.Create(target, newname, newnumlist)
+			/* use.Create(target, newname, newnumlist) */
 		},
 	}
 )
