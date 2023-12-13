@@ -56,11 +56,6 @@ func (r *RequestJSON) UnpackRequest(req *http.Request) {
 	}
 }
 
-// Method for unpack yaml testing
-func (y *YAMLObject) Unpack(data []byte) {
-	yaml.Unmarshal(data, y)
-}
-
 func (o *JSONObject) Pack(c *Contact) {
 	data, err := json.Marshal(c)
 	if err != nil {
