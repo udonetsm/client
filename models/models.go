@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 
 	"gopkg.in/yaml.v2"
 )
@@ -18,6 +19,14 @@ type YAMLObject struct {
 	Pass string `yaml:"password"`
 	SSLM string `yaml:"sslmode"`
 	DBNM string `yaml:"dbname"`
+}
+
+func (y *YAMLObject) YAMLCfg(path string) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = yaml.Unmarshal(data, y)
 }
 
 type Contact struct {
