@@ -1,9 +1,10 @@
-module github.com/udonetsm/client
+module github.com/udonetsm
 
 go 1.21.4
 
 require (
 	github.com/spf13/cobra v1.8.0
+	github.com/udonetsm/client v0.0.0-20231213142519-2dbaa3459dfb
 	github.com/udonetsm/client/models v0.0.0-20231213142519-2dbaa3459dfb
 )
 
