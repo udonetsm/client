@@ -37,18 +37,20 @@ func (y *YAMLObject) YAMLCfg(path string) {
 	err = yaml.Unmarshal(data, y)
 }
 
-func (y *YAMLObject) GetDB(db *gorm.DB) {
+func (y *YAMLObject) GetDB() (db *gorm.DB) {
 	var err error
 	dsn := fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=%s", y.User, y.Pass, y.Host, y.Port, y.DBNM, y.SSLM)
 	db, err = gorm.Open(postgres.Open(dsn))
 	if err != nil {
 		log.Fatal(err)
 	}
+	return
 }
 
-func LoadCfgAndGetDB(yg CfgDBGetter, path string, db *gorm.DB) {
+func LoadCfgAndGetDB(yg CfgDBGetter, path string) (db *gorm.DB) {
 	yg.YAMLCfg(path)
-	yg.GetDB(db)
+	db = yg.GetDB()
+	return
 }
 
 type Contact struct {
