@@ -17,7 +17,7 @@ import (
 
 type CfgDBGetter interface {
 	YAMLCfg(string)
-	GetDB(*gorm.DB)
+	GetDB() *gorm.DB
 }
 
 type YAMLObject struct {
