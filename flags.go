@@ -44,6 +44,14 @@ var (
 			http.Upgrade(target, newnumber, newname, newnumlist)
 		},
 	}
+
+	numlist = &cobra.Command{
+		Use:   "list",
+		Short: "change additional number list (less or equal 3)",
+		Run: func(cmd *cobra.Command, args []string) {
+			http.Upgrade(target, newnumber, newname, newnumlist)
+		},
+	}
 	//show contact info
 	info = &cobra.Command{
 		Use:   "info",
@@ -75,12 +83,16 @@ func addSubcommandInCommand(command *cobra.Command, subcommands ...*cobra.Comman
 
 func init() {
 	addSubcommandInCommand(rootCmd, delete, info, update, create)
-	addSubcommandInCommand(update, number, name)
-	addTarget(number, delete, info, name, create)
+	addSubcommandInCommand(update, number, name, numlist)
+	addTarget(number, numlist, delete, info, name, create)
 
 	name.Flags().StringVarP(&newname, "new", "n", "", "-n <new contact name>")
 	name.MarkFlagRequired("new")
+
 	number.Flags().StringVarP(&newnumber, "new", "n", target, "-n <new general number>")
+
+	numlist.Flags().StringSliceVarP(&newnumlist, "new", "n", nil, "-n <new addional number list less or uqual 3>")
+	numlist.MarkFlagRequired("new")
 
 	create.Flags().StringVarP(&newname, "fname", "f", "", "-f <full name of contact>")
 	create.Flags().StringSliceVarP(&newnumlist, "list", "l", nil, "-l <addnumber1,addnumber2,...addnumber5>")
