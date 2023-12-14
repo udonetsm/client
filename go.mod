@@ -2,7 +2,10 @@ module github.com/udonetsm/client
 
 go 1.21.4
 
-require github.com/spf13/cobra v1.8.0
+require (
+	github.com/spf13/cobra v1.8.0
+	github.com/udonetsm/client/models v0.0.0-20231213174717-4d905a0b1c15
+)
 
 require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
@@ -15,7 +18,6 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/udonetsm/client/models v0.0.0-20231213173937-5c1f39935784 // indirect
 	golang.org/x/crypto v0.16.0 // indirect
 	golang.org/x/sync v0.5.0 // indirect
 	golang.org/x/text v0.14.0 // indirect

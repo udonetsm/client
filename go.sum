@@ -41,6 +41,8 @@ github.com/udonetsm/client/models v0.0.0-20231213165341-ad43cf3f3dae h1:ZZoWBL4d
 github.com/udonetsm/client/models v0.0.0-20231213165341-ad43cf3f3dae/go.mod h1:Es3sSZTrZEGt6Pt2IZ23RjLjVufst9LeoSnhcvKDbuk=
 github.com/udonetsm/client/models v0.0.0-20231213173937-5c1f39935784 h1:LA7CgYvFnIDUeJ5Pwv0vyKzybErmpp8EiJ4RJWOD3oE=
 github.com/udonetsm/client/models v0.0.0-20231213173937-5c1f39935784/go.mod h1:Es3sSZTrZEGt6Pt2IZ23RjLjVufst9LeoSnhcvKDbuk=
+github.com/udonetsm/client/models v0.0.0-20231213174717-4d905a0b1c15 h1:JCM6MvxvLuZnqOmPAxcE79CHskXH+Nb/VZ6hqGwzn8o=
+github.com/udonetsm/client/models v0.0.0-20231213174717-4d905a0b1c15/go.mod h1:Es3sSZTrZEGt6Pt2IZ23RjLjVufst9LeoSnhcvKDbuk=
 golang.org/x/crypto v0.16.0 h1:mMMrFzRSCF0GvB7Ne27XVtVAaXLrPmgPC7/v0tkwHaY=
 golang.org/x/crypto v0.16.0/go.mod h1:gCAAfMLgwOJRpTjQ2zCCt2OcSfYMTeZVSRtQlPC7Nq4=
 golang.org/x/sync v0.5.0 h1:60k92dhOjHxJkrqnwsfl8KuaHbn/5dl0lUPUklKo3qE=
