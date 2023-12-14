@@ -52,7 +52,7 @@ func LoadCfgAndGetDB(yg CfgDBGetter, path string) (db *gorm.DB) {
 }
 
 type Contact struct {
-	Number     string   `json:"num"`
+	Number     string   `json:"num,omitempty"`
 	Name       string   `json:"name,omitempty"`
 	NumberList []string `json:"nlist,omitempty"`
 }
