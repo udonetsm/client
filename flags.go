@@ -41,6 +41,7 @@ var (
 		Use:   "name",
 		Short: "change contact name",
 		Run: func(cmd *cobra.Command, args []string) {
+			http.Upgrade(target, newnumber, newname, newnumlist)
 		},
 	}
 	//show contact info
