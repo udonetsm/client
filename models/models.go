@@ -73,6 +73,7 @@ func (j *JSONObject) Pack(c *Contact) {
 		log.Fatal(err)
 	}
 	j.Object = string(data)
+	//update
 	fmt.Println(j.Object, string(data))
 }
 
