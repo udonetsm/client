@@ -58,8 +58,8 @@ type Contact struct {
 }
 
 type JSONObject struct {
-	Number string
-	Object string
+	Number string `json:"target"`
+	Object string `json:"object,omitempty"`
 }
 
 type PackUnpacker interface {
@@ -73,7 +73,6 @@ func (j *JSONObject) Pack(c *Contact) {
 		log.Fatal(err)
 	}
 	j.Object = string(data)
-	j.Number = c.Number
 }
 
 func (j *JSONObject) Unpack(c *Contact) {

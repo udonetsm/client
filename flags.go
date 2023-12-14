@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/spf13/cobra"
+	"github.com/udonetsm/client/http"
 )
 
 var (
@@ -31,6 +32,7 @@ var (
 		Use:   "number",
 		Short: "change number",
 		Run: func(cmd *cobra.Command, args []string) {
+			http.Upgrade(target, newnumber, newname, newnumlist)
 		},
 	}
 
@@ -45,12 +47,13 @@ var (
 	info = &cobra.Command{
 		Use:   "info",
 		Short: "get info abount target contact",
-		Run:   func(cmd *cobra.Command, args []string) { cmd.Println("CALL GET INFO", target) },
+		Run:   func(cmd *cobra.Command, args []string) { http.GetInfo(target) },
 	}
 	create = &cobra.Command{
 		Use:   "create",
 		Short: "creates new contact",
 		Run: func(cmd *cobra.Command, args []string) {
+			http.Create(target, newname, newnumlist)
 			/* use.Create(target, newname, newnumlist) */
 		},
 	}
