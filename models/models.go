@@ -63,16 +63,21 @@ type JSONObject struct {
 }
 
 type PackUnpacker interface {
-	Pack(*Contact)
+	Pack(*Contact) []byte
 	Unpack(*Contact)
 }
 
-func (j *JSONObject) Pack(c *Contact) {
+func (j *JSONObject) Pack(c *Contact) []byte {
 	data, err := json.Marshal(c)
 	if err != nil {
 		log.Fatal(err)
 	}
 	j.Object = string(data)
+	data, err = json.Marshal(j)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return data
 }
 
 func (j *JSONObject) Unpack(c *Contact) {
@@ -82,8 +87,9 @@ func (j *JSONObject) Unpack(c *Contact) {
 	}
 }
 
-func Packing(pu PackUnpacker, c *Contact) {
-	pu.Pack(c)
+func Packing(pu PackUnpacker, c *Contact) (data []byte) {
+	data = pu.Pack(c)
+	return
 }
 
 func Unpacking(pu PackUnpacker, c *Contact) {
