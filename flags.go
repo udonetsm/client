@@ -58,7 +58,9 @@ var (
 	info = &cobra.Command{
 		Use:   "info",
 		Short: "get info abount target contact",
-		Run:   func(cmd *cobra.Command, args []string) { http.DeleteOrInfo(target) },
+		Run: func(cmd *cobra.Command, args []string) {
+			http.DeleteOrInfo(target)
+		},
 	}
 	create = &cobra.Command{
 		Use:   "create",
