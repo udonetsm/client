@@ -1,45 +1,96 @@
 package http
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
+	"os"
 
-	"github.com/udonetsm/client/models"
+	"gopkg.in/yaml.v2"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-// Create get json with number, name and additional numbers
-// and call create function on the server side using http
-func Create(target, name string, nums []string) {
-	contact := &models.Contact{target, name, nums}
-	object := &models.JSONObject{Number: target}
-	pu := models.Packing(object, contact)
-	fmt.Println(string(pu))
-	// call Create server function
+type YAMLObject struct {
+	Host string `yaml:"host"`
+	Port string `yaml:"port"`
+	User string `yaml:"user"`
+	Pass string `yaml:"password"`
+	SSLM string `yaml:"sslmode"`
+	DBNM string `yaml:"dbname"`
 }
 
-// DeleteOrInfo get json with target number only
-// and send it to the server side.
-// if current command line command is delete
-// this func call delete function using http on the server side
-// if command line command is info
-// this func call info on the server side using http and
-// get full info about target contact
-func DeleteOrInfo(target string) {
-	object := &models.JSONObject{Number: target}
-	// needs only target number. Contact should be empty
-	pu := models.Packing(object, &models.Contact{})
-	fmt.Println(string(pu))
+type CfgDBGetter interface {
+	YAMLCfg(string)
+	GetDB() *gorm.DB
 }
 
-// Upgrade get json with target contact, upgradable
-// unit and new value of upgradable unit
-// and call update func on the server side using http
-// this func can update all of part some contact
-func Upgrade(target, num, name string, nums []string) {
-	// Contact includes only one field.
-	// It set during type command line command
-	contact := &models.Contact{num, name, nums}
-	object := &models.JSONObject{Number: target}
-	pu := models.Packing(object, contact)
-	fmt.Println(string(pu))
-	// find contact in db and change its info using JSONObject
+func (y *YAMLObject) YAMLCfg(path string) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = yaml.Unmarshal(data, y)
+}
+
+func (y *YAMLObject) GetDB() (db *gorm.DB) {
+	var err error
+	dsn := fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=%s", y.User, y.Pass, y.Host, y.Port, y.DBNM, y.SSLM)
+	db, err = gorm.Open(postgres.Open(dsn))
+	if err != nil {
+		log.Fatal(err)
+	}
+	return
+}
+
+func LoadCfgAndGetDB(yg CfgDBGetter, path string) (db *gorm.DB) {
+	yg.YAMLCfg(path)
+	db = yg.GetDB()
+	return
+}
+
+type Contact struct {
+	Number     string   `json:"num,omitempty"`
+	Name       string   `json:"name,omitempty"`
+	NumberList []string `json:"nlist,omitempty"`
+}
+
+type JSONObject struct {
+	Number string `json:"target"`
+	Object string `json:"object,omitempty"`
+}
+
+type PackUnpacker interface {
+	Pack(*Contact) []byte
+	Unpack(*Contact)
+}
+
+// new
+func (j *JSONObject) Pack(c *Contact) []byte {
+	data, err := json.Marshal(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+	j.Object = string(data)
+	data, err = json.Marshal(j)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return data
+}
+
+func (j *JSONObject) Unpack(c *Contact) {
+	err := json.Unmarshal([]byte(j.Object), c)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func Packing(pu PackUnpacker, c *Contact) (data []byte) {
+	data = pu.Pack(c)
+	return
+}
+
+func Unpacking(pu PackUnpacker, c *Contact) {
+	pu.Unpack(c)
 }
