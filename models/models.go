@@ -67,6 +67,7 @@ type PackUnpacker interface {
 	Unpack(*Contact)
 }
 
+// new
 func (j *JSONObject) Pack(c *Contact) []byte {
 	data, err := json.Marshal(c)
 	if err != nil {
