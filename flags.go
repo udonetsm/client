@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/spf13/cobra"
 	"github.com/udonetsm/client/http"
+	"github.com/udonetsm/client/models"
 )
 
 var (

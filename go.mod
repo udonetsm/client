@@ -4,7 +4,7 @@ go 1.21.4
 
 require (
 	github.com/spf13/cobra v1.8.0
-	github.com/udonetsm/client/models v0.0.0-20231214163531-1f815a0b5f22
+	github.com/udonetsm/client/models v0.0.0-20231215064917-7e3cd46f4803
 )
 
 require (
