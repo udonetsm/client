@@ -17,6 +17,7 @@ var (
 		Use:   "delete",
 		Short: "delete target contact",
 		Run: func(cmd *cobra.Command, args []string) {
+			models.DeleteOrInfo(target)
 		},
 	}
 	//command update includes next subcommands ...
@@ -56,7 +57,7 @@ var (
 	info = &cobra.Command{
 		Use:   "info",
 		Short: "get info abount target contact",
-		Run:   func(cmd *cobra.Command, args []string) { http.GetInfo(target) },
+		Run:   func(cmd *cobra.Command, args []string) { http.DeleteOrInfo(target) },
 	}
 	create = &cobra.Command{
 		Use:   "create",

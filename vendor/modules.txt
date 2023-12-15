@@ -38,7 +38,7 @@ github.com/spf13/cobra
 # github.com/spf13/pflag v1.0.5
 ## explicit; go 1.12
 github.com/spf13/pflag
-# github.com/udonetsm/client/models v0.0.0-20231214154247-da6511bb6164
+# github.com/udonetsm/client/models v0.0.0-20231214155325-f8cccbceec46
 ## explicit; go 1.21.4
 github.com/udonetsm/client/models
 # golang.org/x/crypto v0.16.0
