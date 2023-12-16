@@ -34,8 +34,8 @@ github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UV
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKsk=
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
-github.com/udonetsm/client/models v0.0.0-20231216070035-3eaeb572f467 h1:3mye5EZSZLLUFQZ9PV1Ra5Mp1wJjJlwtZuyCUl60qwo=
-github.com/udonetsm/client/models v0.0.0-20231216070035-3eaeb572f467/go.mod h1:lqZZ/ecGPJ7ZziHpOU+dSdpAjs4DgmCOSfFOckktE2Y=
+github.com/udonetsm/client/models v0.0.0-20231216070652-b54ec4e16764 h1:dTxtS/9UsCquSUE5t8rDdA932xzZ9d/ddsrsNND8IsM=
+github.com/udonetsm/client/models v0.0.0-20231216070652-b54ec4e16764/go.mod h1:lqZZ/ecGPJ7ZziHpOU+dSdpAjs4DgmCOSfFOckktE2Y=
 golang.org/x/crypto v0.16.0 h1:mMMrFzRSCF0GvB7Ne27XVtVAaXLrPmgPC7/v0tkwHaY=
 golang.org/x/crypto v0.16.0/go.mod h1:gCAAfMLgwOJRpTjQ2zCCt2OcSfYMTeZVSRtQlPC7Nq4=
 golang.org/x/sync v0.5.0 h1:60k92dhOjHxJkrqnwsfl8KuaHbn/5dl0lUPUklKo3qE=

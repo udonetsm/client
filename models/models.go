@@ -56,13 +56,13 @@ type Contact struct {
 }
 
 type JSONObject struct {
-	Number string   `json:"target"`
-	Object *Contact `json:"object,omitempty"`
+	Number string  `json:"target"`
+	Object Contact `json:"object,omitempty"`
 }
 
 type PackUnpacker interface {
 	Pack() []byte
-	Unpack() []byte
+	Unpack()
 }
 
 func (j *JSONObject) Pack() (data []byte) {
@@ -73,12 +73,11 @@ func (j *JSONObject) Pack() (data []byte) {
 	return
 }
 
-func (j *JSONObject) Unpack() (data []byte) {
+func (j *JSONObject) Unpack(data []byte) {
 	err := json.Unmarshal(data, j)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return
 }
 
 func Packing(pu PackUnpacker) (data []byte) {
@@ -86,7 +85,7 @@ func Packing(pu PackUnpacker) (data []byte) {
 	return
 }
 
-func Unpacking(pu PackUnpacker) (data []byte) {
+func Unpacking(pu PackUnpacker) {
 	pu.Unpack()
 	return
 }
