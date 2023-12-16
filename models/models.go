@@ -65,15 +65,19 @@ type PackUnpacker interface {
 	Unpack() []byte
 }
 
-func (j *JSONObject) Pack() []byte {
+func (j *JSONObject) Pack() (data []byte) {
 	data, err := json.Marshal(j)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return data
+	return
 }
 
 func (j *JSONObject) Unpack() (data []byte) {
+	err := json.Unmarshal(data, j)
+	if err != nil {
+		log.Fatal(err)
+	}
 	return
 }
 
