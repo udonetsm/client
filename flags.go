@@ -7,6 +7,7 @@ import (
 )
 
 var (
+	// initialize commands
 	target, newname, newnumber string
 	newnumlist                 []string
 	rootCmd                    = &cobra.Command{
