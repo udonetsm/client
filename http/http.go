@@ -10,8 +10,8 @@ import (
 // and call create function on the server side using http
 func Create(target, name string, nums []string) {
 	contact := &models.Contact{target, name, nums}
-	object := &models.JSONObject{Number: target}
-	pu := models.Packing(object, contact)
+	object := &models.JSONObject{Number: target, Object: contact}
+	pu := models.Packing(object)
 	fmt.Println(string(pu))
 	// call Create server function
 }
@@ -26,7 +26,7 @@ func Create(target, name string, nums []string) {
 func DeleteOrInfo(target string) {
 	object := &models.JSONObject{Number: target}
 	// needs only target number. Contact should be empty
-	pu := models.Packing(object, &models.Contact{})
+	pu := models.Packing(object)
 	fmt.Println(string(pu))
 }
 
@@ -38,8 +38,8 @@ func Upgrade(target, num, name string, nums []string) {
 	// Contact includes only one field.
 	// It set during type command line command
 	contact := &models.Contact{num, name, nums}
-	object := &models.JSONObject{Number: target}
-	pu := models.Packing(object, contact)
+	object := &models.JSONObject{Number: target, Object: contact}
+	pu := models.Packing(object)
 	fmt.Println(string(pu))
 	// find contact in db and change its info using JSONObject
 }

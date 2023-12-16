@@ -77,7 +77,7 @@ func (j *JSONObject) Unpack() (data []byte) {
 	return
 }
 
-func Packing(pu PackUnpacker, c *Contact) (data []byte) {
+func Packing(pu PackUnpacker) (data []byte) {
 	data = pu.Pack()
 	return
 }
