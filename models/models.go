@@ -79,7 +79,7 @@ type JSONObject struct {
 
 // Duck typing for json object
 type PackUnpacker interface {
-	Pack() []byte
+	Pack(*Contact) []byte
 	// Unpack for use it on the server side
 	// This func unpacking json on the server side
 	Unpack([]byte)
@@ -109,8 +109,8 @@ func (j *JSONObject) Unpack(data []byte) {
 }
 
 // Use duck typing for pack
-func Packing(pu PackUnpacker) (data []byte) {
-	data = pu.Pack()
+func Packing(pu PackUnpacker, c *Contact) (data []byte) {
+	data = pu.Pack(c)
 	return
 }
 
