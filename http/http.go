@@ -34,9 +34,8 @@ func Delete(target string) {
 // this func call info function using http on the server side
 func Info(target string) {
 	// needs only target number. Contact should be empty
-	pu := models.Packing(&models.Entries{}, &models.Contact{Number: target})
+	pu := models.Packing(&models.Entries{Number: target}, &models.Contact{})
 	DoReq("http://localhost:8080", "/info", http.MethodPost, pu)
-	fmt.Println(string(pu))
 }
 
 // Upgrade get json with target contact, upgradable
