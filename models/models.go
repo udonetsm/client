@@ -56,8 +56,8 @@ type Contact struct {
 }
 
 type JSONObject struct {
-	Number string  `json:"target"`
-	Object Contact `json:"object,omitempty"`
+	Number string   `json:"target"`
+	Object *Contact `json:"object,omitempty"`
 }
 
 type PackUnpacker interface {
