@@ -82,7 +82,7 @@ type PackUnpacker interface {
 	Pack() []byte
 	// Unpack for use it on the server side
 	// This func unpacking json on the server side
-	Unpack()
+	Unpack([]byte)
 }
 
 // Pack object to json string
@@ -109,7 +109,7 @@ func Packing(pu PackUnpacker) (data []byte) {
 }
 
 // Use duck typing for unpack
-func Unpacking(pu PackUnpacker) {
-	pu.Unpack()
+func Unpacking(pu PackUnpacker, data []byte) {
+	pu.Unpack(data)
 	return
 }
