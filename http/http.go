@@ -15,7 +15,7 @@ import (
 // and call create function on the server side using http
 func Create(target, name string, nums []string) {
 	contact := &models.Contact{target, name, nums}
-	object := &models.JSONObject{Number: target}
+	object := &models.Entries{Number: target}
 	pu := models.Packing(object, contact)
 	DoReq("http://localhost:8080", "/create", http.MethodPost, pu)
 	// call Create server function
@@ -25,19 +25,18 @@ func Create(target, name string, nums []string) {
 // and send it to the server side.
 // this func call delete function using http on the server side
 func Delete(target string) {
-	object := &models.JSONObject{Number: target}
+	object := &models.Entries{}
 	// needs only target number. Contact should be empty
-	pu := models.Packing(object, &models.Contact{})
+	pu := models.Packing(object, &models.Contact{Number: target})
 	DoReq("http://localhost:8080", "/delete", http.MethodPost, pu)
 }
 
 // this func call info function using http on the server side
 func Info(target string) {
-	object := &models.JSONObject{Number: target}
 	// needs only target number. Contact should be empty
-	pu := models.Packing(object, &models.Contact{})
+	pu := models.Packing(&models.Entries{}, &models.Contact{Number: target})
 	DoReq("http://localhost:8080", "/info", http.MethodPost, pu)
-
+	fmt.Println(string(pu))
 }
 
 // Upgrade get json with target contact, upgradable
@@ -48,7 +47,7 @@ func Upgrade(target, upgradable, num, name string, nums []string) {
 	// Contact includes only one field.
 	// It set during type command line command
 	contact := &models.Contact{num, name, nums}
-	object := &models.JSONObject{Number: target}
+	object := &models.Entries{Number: target}
 	pu := models.Packing(object, contact)
 	DoReq("http://localhost:8080", fmt.Sprintf("/update/%s", upgradable), http.MethodPost, pu)
 	// find contact in db and change its info using JSONObject

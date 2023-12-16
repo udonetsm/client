@@ -92,7 +92,6 @@ func (j *Entries) Pack(contact *Contact) (data []byte) {
 		log.Fatal(err)
 	}
 	j.Object = string(data)
-	j.Number = contact.Number
 	data, err = json.Marshal(j)
 	if err != nil {
 		log.Fatal(err)
