@@ -19,7 +19,7 @@ var (
 		Use:   "delete",
 		Short: "delete target contact",
 		Run: func(cmd *cobra.Command, args []string) {
-			http.DeleteOrInfo(target)
+			http.Delete(target)
 		},
 	}
 	//command update includes next subcommands:...
@@ -35,7 +35,7 @@ var (
 		Use:   "number",
 		Short: "change number",
 		Run: func(cmd *cobra.Command, args []string) {
-			http.Upgrade(target, newnumber, newname, newnumlist)
+			http.Upgrade(target, "number", newnumber, newname, newnumlist)
 		},
 	}
 
@@ -44,7 +44,7 @@ var (
 		Use:   "name",
 		Short: "change contact name",
 		Run: func(cmd *cobra.Command, args []string) {
-			http.Upgrade(target, newnumber, newname, newnumlist)
+			http.Upgrade(target, "name", newnumber, newname, newnumlist)
 		},
 	}
 
@@ -54,7 +54,7 @@ var (
 		Short: "change additional number list (less or equal 3)",
 		Run: func(cmd *cobra.Command, args []string) {
 			use.LimitNumList(newnumlist)
-			http.Upgrade(target, newnumber, newname, newnumlist)
+			http.Upgrade(target, "numlist", newnumber, newname, newnumlist)
 		},
 	}
 	//show contact info
@@ -62,7 +62,7 @@ var (
 		Use:   "info",
 		Short: "get info abount target contact",
 		Run: func(cmd *cobra.Command, args []string) {
-			http.DeleteOrInfo(target)
+			http.Info(target)
 		},
 	}
 	// creates new contact.
