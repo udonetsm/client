@@ -74,7 +74,7 @@ type JSONObject struct {
 	Number string `json:"target"`
 	// Object can be empty if using the DeleteOrInfo function.
 	// See package github.com/udonetsm/client/http
-	Object *Contact `json:"object,omitempty"`
+	Object string `json:"object,omitempty"`
 }
 
 // Duck typing for json object
@@ -86,8 +86,14 @@ type PackUnpacker interface {
 }
 
 // Pack object to json string
-func (j *JSONObject) Pack() (data []byte) {
-	data, err := json.Marshal(j)
+func (j *JSONObject) Pack(contact *Contact) (data []byte) {
+	data, err := json.Marshal(contact)
+	if err != nil {
+		log.Fatal(err)
+	}
+	j.Object = string(data)
+	j.Number = contact.Number
+	data, err = json.Marshal(j)
 	if err != nil {
 		log.Fatal(err)
 	}
