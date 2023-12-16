@@ -70,7 +70,7 @@ type Contact struct {
 // includes:
 // target for fill entry_id in database
 // Contact for build json string for use functions on the server side
-type JSONObject struct {
+type Entries struct {
 	Number string `json:"target"`
 	// Object can be empty if using the DeleteOrInfo function.
 	// See package github.com/udonetsm/client/http
@@ -86,7 +86,7 @@ type PackUnpacker interface {
 }
 
 // Pack object to json string
-func (j *JSONObject) Pack(contact *Contact) (data []byte) {
+func (j *Entries) Pack(contact *Contact) (data []byte) {
 	data, err := json.Marshal(contact)
 	if err != nil {
 		log.Fatal(err)
@@ -101,7 +101,7 @@ func (j *JSONObject) Pack(contact *Contact) (data []byte) {
 }
 
 // Unpack object from json string to JSONObject struct
-func (j *JSONObject) Unpack(data []byte) {
+func (j *Entries) Unpack(data []byte) {
 	err := json.Unmarshal(data, j)
 	if err != nil {
 		log.Fatal(err)
