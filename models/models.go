@@ -111,5 +111,4 @@ func Packing(pu PackUnpacker) (data []byte) {
 // Use duck typing for unpack
 func Unpacking(pu PackUnpacker, data []byte) {
 	pu.Unpack(data)
-	return
 }
