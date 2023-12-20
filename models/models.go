@@ -66,6 +66,13 @@ type Contact struct {
 	NumberList []string `json:"nlist,omitempty"`
 }
 
+func (c *Contact) Unpack(data []byte) {
+	err := json.Unmarshal(data, c)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 // JSON object for making request to server side
 // includes:
 // target for fill entry_id in database
