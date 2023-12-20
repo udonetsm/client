@@ -73,6 +73,14 @@ func (c *Contact) Unpack(data []byte) {
 	}
 }
 
+type PackUnpackerContact interface {
+	Unpack([]byte)
+}
+
+func UnpackingContact(p PackUnpackerContact, data []byte) {
+	p.Unpack(data)
+}
+
 // JSON object for making request to server side
 // includes:
 // target for fill entry_id in database
