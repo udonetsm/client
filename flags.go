@@ -76,7 +76,6 @@ var (
 			// otherwise program craches
 			use.LimitNumList(newnumlist)
 			http.Create(target, newname, newnumlist)
-			/* use.Create(target, newname, newnumlist) */
 		},
 	}
 )

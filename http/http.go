@@ -25,7 +25,7 @@ func Create(target, name string, nums []string) {
 // and send it to the server side.
 // this func call delete function using http on the server side
 func Delete(target string) {
-	object := &models.Entries{}
+	object := &models.Entries{Number: target}
 	// needs only target number. Contact should be empty
 	pu := models.Packing(object, &models.Contact{Number: target})
 	DoReq("http://localhost:8080", "/delete", http.MethodPost, pu)
