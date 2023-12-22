@@ -84,7 +84,7 @@ var (
 // addTarget is a local function for set it
 func addTarget(c ...*cobra.Command) {
 	for _, item := range c {
-		item.Flags().StringVarP(&target, "target", "t", "", "-t <phone number>")
+		item.Flags().StringVarP(&target, "target", "t", "", "-t <general phone number>")
 		item.MarkFlagRequired("target")
 	}
 }
