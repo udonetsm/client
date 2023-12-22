@@ -11,7 +11,7 @@ var (
 	target, newname, newnumber string
 	newnumlist                 []string
 	rootCmd                    = &cobra.Command{
-		Use:   "contactmgr",
+		Use:   "cmngr",
 		Short: "manage your contacts",
 		Run:   func(cmd *cobra.Command, args []string) { cmd.Println("", target) },
 	}
@@ -114,6 +114,5 @@ func init() {
 	create.Flags().StringVarP(&newname, "fname", "f", "", "-f <full name of contact>")
 	create.Flags().StringSliceVarP(&newnumlist, "list", "l", nil, "-l <addnumber1,...,addnumber3>")
 	create.MarkFlagRequired("fname")
-
 	rootCmd.Execute()
 }
