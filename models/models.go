@@ -101,25 +101,29 @@ type PackUnpacker interface {
 }
 
 // Pack object to json string
-func (j *Entries) Pack(contact *Contact) (data []byte) {
-	data, err := json.Marshal(contact)
+func (j *Entries) Pack(contact *Contact) (data []byte, err error) {
+	data, err = json.Marshal(contact)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return
 	}
 	j.Object = string(data)
 	data, err = json.Marshal(j)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return
 	}
 	return
 }
 
 // Unpack object from json string to JSONObject struct
-func (j *Entries) Unpack(data []byte) {
-	err := json.Unmarshal(data, j)
+func (j *Entries) Unpack(data []byte) (err error) {
+	err = json.Unmarshal(data, j)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return
 	}
+	return nil
 }
 
 // Use duck typing for pack
