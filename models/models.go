@@ -123,7 +123,7 @@ func (j *Entries) Unpack(data []byte) (err error) {
 		log.Println(err)
 		return
 	}
-	return nil
+	return
 }
 
 // Use duck typing for pack
