@@ -16,7 +16,7 @@ import (
 func Create(target, name string, nums []string) {
 	contact := &models.Contact{target, name, nums}
 	object := &models.Entries{Number: target}
-	pu := models.PackUnpackerEntries(object, contact)
+	pu := models.PackingEntries(object, contact)
 	DoReq("http://localhost:8080", "/create", http.MethodPost, pu)
 	// call Create server function
 }
@@ -27,14 +27,14 @@ func Create(target, name string, nums []string) {
 func Delete(target string) {
 	object := &models.Entries{Number: target}
 	// needs only target number. Contact should be empty
-	pu := models.Packing(object, &models.Contact{Number: target})
+	pu := models.PackingEntries(object, &models.Contact{Number: target})
 	DoReq("http://localhost:8080", "/delete", http.MethodPost, pu)
 }
 
 // this func call info function using http on the server side
 func Info(target string) {
 	// needs only target number. Contact should be empty
-	pu := models.Packing(&models.Entries{Number: target}, &models.Contact{})
+	pu := models.PackingEntries(&models.Entries{Number: target}, &models.Contact{})
 	DoReq("http://localhost:8080", "/info", http.MethodPost, pu)
 }
 
@@ -47,7 +47,7 @@ func Upgrade(target, upgradable, num, name string, nums []string) {
 	// It set during type command line command
 	contact := &models.Contact{num, name, nums}
 	object := &models.Entries{Number: target}
-	pu := models.Packing(object, contact)
+	pu := models.PackingEntries(object, contact)
 	DoReq("http://localhost:8080", fmt.Sprintf("/update/%s", upgradable), http.MethodPost, pu)
 	// find contact in db and change its info using JSONObject
 }

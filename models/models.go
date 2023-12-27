@@ -79,9 +79,9 @@ func (c *Contact) UnpackContact(e *Entries) {
 }
 
 type PackUnpackerContact interface {
-	Unpack(*Entries)
+	UnpackContact(*Entries)
 }
 
 func UnpackingContact(p PackUnpackerContact, e *Entries) {
-	p.Unpack(e)
+	p.UnpackContact(e)
 }
