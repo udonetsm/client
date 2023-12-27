@@ -16,7 +16,7 @@ import (
 func Create(target, name string, nums []string) {
 	contact := &models.Contact{target, name, nums}
 	object := &models.Entries{Number: target}
-	pu := models.Packing(object, contact)
+	pu := models.PackUnpackerEntries(object, contact)
 	DoReq("http://localhost:8080", "/create", http.MethodPost, pu)
 	// call Create server function
 }

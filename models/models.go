@@ -20,6 +20,11 @@ type Entries struct {
 	Error  error  `gorm:"-" json:"omitempty"`
 }
 
+type PackUnpackerEntries interface {
+	UnpackEntries([]byte)
+	PackEntries(*Contact) []byte
+}
+
 // Pack object to json string
 func (j *Entries) PackEntries(contact *Contact) (data []byte) {
 	data, err := json.Marshal(contact)
@@ -46,6 +51,15 @@ func (j *Entries) UnpackEntries(data []byte) {
 		j.Error = err
 		return
 	}
+}
+
+func PackingEntries(pu PackUnpackerEntries, c *Contact) (data []byte) {
+	data = pu.PackEntries(c)
+	return
+}
+
+func UnpackingEntries(pu PackUnpackerEntries, data []byte) {
+	pu.UnpackEntries(data)
 }
 
 // Contact object
