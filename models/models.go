@@ -5,7 +5,6 @@ package models
 
 import (
 	"encoding/json"
-	"log"
 )
 
 // JSON object for making request to server side
@@ -17,7 +16,7 @@ type Entries struct {
 	// Object can be empty if using the DeleteOrInfo function.
 	// See package github.com/udonetsm/client/http
 	Object string `json:"object,omitempty"`
-	Error  error  `gorm:"-" json:"omitempty"`
+	Error  error  `gorm:"-" json:"error,omitempty"`
 }
 
 type PackUnpackerEntries interface {
@@ -29,14 +28,12 @@ type PackUnpackerEntries interface {
 func (j *Entries) PackEntries(contact *Contact) (data []byte) {
 	data, err := json.Marshal(contact)
 	if err != nil {
-		log.Println(err)
 		j.Error = err
 		return
 	}
 	j.Object = string(data)
 	data, err = json.Marshal(j)
 	if err != nil {
-		log.Println(err)
 		j.Error = err
 		return
 	}
@@ -47,7 +44,6 @@ func (j *Entries) PackEntries(contact *Contact) (data []byte) {
 func (j *Entries) UnpackEntries(data []byte) {
 	err := json.Unmarshal(data, j)
 	if err != nil {
-		log.Println(err)
 		j.Error = err
 		return
 	}
@@ -72,7 +68,6 @@ type Contact struct {
 func (c *Contact) UnpackContact(e *Entries) {
 	err := json.Unmarshal([]byte(e.Object), c)
 	if err != nil {
-		log.Println(err)
 		e.Error = err
 		return
 	}
