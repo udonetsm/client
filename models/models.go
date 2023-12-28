@@ -29,6 +29,10 @@ func (j *Entries) PackEntries(contact *Contact) (data []byte, err error) {
 	}
 	j.Object = contact
 	data, err = json.Marshal(j)
+	if err != nil {
+		j.Error = err
+		return
+	}
 	return
 }
 
