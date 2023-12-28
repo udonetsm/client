@@ -64,6 +64,7 @@ func Upgrade(target, upgradable, num, name string, nums []string) {
 		log.Fatal(err)
 		return
 	}
+	fmt.Println(string(pu))
 	DoReq("http://localhost:8080", fmt.Sprintf("/update/%s", upgradable), http.MethodPost, pu)
 	// find contact in db and change its info using JSONObject
 }
