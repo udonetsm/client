@@ -12,31 +12,20 @@ import (
 // target for fill entry_id in database
 // Contact for build json string for use functions on the server side
 type Entries struct {
-	Number string `json:"number"`
+	Number string `gorm:"number" json:"number"`
 	// Object can be empty if using the DeleteOrInfo function.
 	// See package github.com/udonetsm/client/http
-	Object string `json:"object,omitempty"`
-	Error  error  `gorm:"-" json:"error,omitempty"`
-}
-
-type PackUnpackerEntries interface {
-	UnpackEntries([]byte)
-	PackEntries(*Contact) []byte
+	Object *Contact `gorm:"object" json:"object,omitempty"`
+	// Error using on the server side for
+	// answer about errors to clients...
+	// default empty
+	Error error `json:"error,omitempty" gorm:"-" `
 }
 
 // Pack object to json string
-func (j *Entries) PackEntries(contact *Contact) (data []byte) {
-	data, err := json.Marshal(contact)
-	if err != nil {
-		j.Error = err
-		return
-	}
-	j.Object = string(data)
+func (j *Entries) PackEntries(contact *Contact) (data []byte, err error) {
+	j.Object = contact
 	data, err = json.Marshal(j)
-	if err != nil {
-		j.Error = err
-		return
-	}
 	return
 }
 
@@ -49,8 +38,13 @@ func (j *Entries) UnpackEntries(data []byte) {
 	}
 }
 
-func PackingEntries(pu PackUnpackerEntries, c *Contact) (data []byte) {
-	data = pu.PackEntries(c)
+type PackUnpackerEntries interface {
+	UnpackEntries([]byte)
+	PackEntries(*Contact) ([]byte, error)
+}
+
+func PackingEntries(pu PackUnpackerEntries, c *Contact) (data []byte, err error) {
+	data, err = pu.PackEntries(c)
 	return
 }
 
@@ -63,14 +57,6 @@ type Contact struct {
 	Number     string   `json:"num,omitempty"`
 	Name       string   `json:"name,omitempty"`
 	NumberList []string `json:"nlist,omitempty"`
-}
-
-func (c *Contact) UnpackContact(e *Entries) {
-	err := json.Unmarshal([]byte(e.Object), c)
-	if err != nil {
-		e.Error = err
-		return
-	}
 }
 
 type PackUnpackerContact interface {

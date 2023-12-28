@@ -16,7 +16,11 @@ import (
 func Create(target, name string, nums []string) {
 	contact := &models.Contact{target, name, nums}
 	object := &models.Entries{Number: target}
-	pu := models.PackingEntries(object, contact)
+	pu, err := models.PackingEntries(object, contact)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 	DoReq("http://localhost:8080", "/create", http.MethodPost, pu)
 	// call Create server function
 }
@@ -27,14 +31,22 @@ func Create(target, name string, nums []string) {
 func Delete(target string) {
 	object := &models.Entries{Number: target}
 	// needs only target number. Contact should be empty
-	pu := models.PackingEntries(object, &models.Contact{Number: target})
+	pu, err := models.PackingEntries(object, &models.Contact{Number: target})
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 	DoReq("http://localhost:8080", "/delete", http.MethodPost, pu)
 }
 
 // this func call info function using http on the server side
 func Info(target string) {
 	// needs only target number. Contact should be empty
-	pu := models.PackingEntries(&models.Entries{Number: target}, &models.Contact{})
+	pu, err := models.PackingEntries(&models.Entries{Number: target}, &models.Contact{})
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 	DoReq("http://localhost:8080", "/info", http.MethodPost, pu)
 }
 
@@ -47,7 +59,11 @@ func Upgrade(target, upgradable, num, name string, nums []string) {
 	// It set during type command line command
 	contact := &models.Contact{num, name, nums}
 	object := &models.Entries{Number: target}
-	pu := models.PackingEntries(object, contact)
+	pu, err := models.PackingEntries(object, contact)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 	DoReq("http://localhost:8080", fmt.Sprintf("/update/%s", upgradable), http.MethodPost, pu)
 	// find contact in db and change its info using JSONObject
 }
@@ -56,6 +72,7 @@ func Upgrade(target, upgradable, num, name string, nums []string) {
 // url example <http://localhost:8080>
 // uri example </targetfunction>
 func DoReq(url, uri, method string, body []byte) {
+	fmt.Println(string(body))
 	req, err := http.NewRequest(method, fmt.Sprintf("%s%s", url, uri), bytes.NewBuffer(body))
 	if err != nil {
 		log.Fatal(err)
@@ -74,6 +91,5 @@ func DoReq(url, uri, method string, body []byte) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	//require get contact here from db on the server side, not from client side
 	log.Println(string(body))
 }

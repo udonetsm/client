@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log"
+
 	"github.com/spf13/cobra"
 	"github.com/udonetsm/client/http"
 	"github.com/udonetsm/client/use"
@@ -13,7 +15,9 @@ var (
 	rootCmd                    = &cobra.Command{
 		Use:   "cmngr",
 		Short: "manage your contacts",
-		Run:   func(cmd *cobra.Command, args []string) { cmd.Println("", target) },
+		Run: func(cmd *cobra.Command, args []string) {
+			log.Println("See help using \"cmngr -h\"")
+		},
 	}
 	delete = &cobra.Command{
 		Use:   "delete",
