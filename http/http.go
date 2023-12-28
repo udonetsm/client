@@ -72,7 +72,6 @@ func Upgrade(target, upgradable, num, name string, nums []string) {
 // url example <http://localhost:8080>
 // uri example </targetfunction>
 func DoReq(url, uri, method string, body []byte) {
-	fmt.Println(string(body))
 	req, err := http.NewRequest(method, fmt.Sprintf("%s%s", url, uri), bytes.NewBuffer(body))
 	if err != nil {
 		log.Fatal(err)

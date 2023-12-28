@@ -58,7 +58,7 @@ var (
 		Short: "change additional number list (less or equal 3)",
 		Run: func(cmd *cobra.Command, args []string) {
 			use.LimitNumList(newnumlist)
-			http.Upgrade(target, "numlist", newnumber, newname, newnumlist)
+			http.Upgrade(target, "listnumber", newnumber, newname, newnumlist)
 		},
 	}
 	//show contact info

@@ -24,6 +24,9 @@ type Entries struct {
 
 // Pack object to json string
 func (j *Entries) PackEntries(contact *Contact) (data []byte, err error) {
+	if contact.Name == "" && contact.Number == "" && contact.NumberList == nil {
+		contact = nil
+	}
 	j.Object = contact
 	data, err = json.Marshal(j)
 	return
@@ -60,9 +63,17 @@ type Contact struct {
 }
 
 type PackUnpackerContact interface {
-	UnpackContact(*Entries)
+	UnpackContact(*Entries) []byte
 }
 
 func UnpackingContact(p PackUnpackerContact, e *Entries) {
 	p.UnpackContact(e)
+}
+
+func (c *Contact) PackContact(e *Entries) (data []byte) {
+	data, err := json.Marshal(e.Object)
+	if err != nil {
+		e.Error = err
+	}
+	return
 }
