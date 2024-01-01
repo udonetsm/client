@@ -82,6 +82,14 @@ var (
 			http.Create(target, newname, newnumlist)
 		},
 	}
+
+	search = &cobra.Command{
+		Use:   "search",
+		Short: "find contact by target name",
+		Run: func(cmd *cobra.Command, args []string) {
+			http.Search(newname)
+		},
+	}
 )
 
 // several same flags in several different commands are required
@@ -103,7 +111,7 @@ func addSubcommandInCommand(command *cobra.Command, subcommands ...*cobra.Comman
 
 // Load flags
 func init() {
-	addSubcommandInCommand(rootCmd, delete, info, update, create)
+	addSubcommandInCommand(rootCmd, delete, info, update, create, search)
 	addSubcommandInCommand(update, number, name, numlist)
 	addTarget(number, numlist, delete, info, name, create)
 
@@ -118,5 +126,8 @@ func init() {
 	create.Flags().StringVarP(&newname, "fname", "f", "", "-f <full name of contact>")
 	create.Flags().StringSliceVarP(&newnumlist, "list", "l", nil, "-l <addnumber1,...,addnumber3>")
 	create.MarkFlagRequired("fname")
+
+	search.Flags().StringVarP(&newname, "name", "n", "", "-n <target name>")
+	search.MarkFlagRequired("name")
 	rootCmd.Execute()
 }
