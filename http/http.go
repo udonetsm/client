@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/udonetsm/client/models"
+	"github.com/udonetsm/server/models"
 )
 
 // Create get json with number, name and additional numbers
@@ -31,7 +31,7 @@ func Create(target, name string, nums []string) {
 func Delete(target string) {
 	object := &models.Entries{Number: target}
 	// needs only target number. Contact should be empty
-	pu, err := models.PackingEntries(object, &models.Contact{Number: target})
+	pu, err := models.PackingEntries(object, &models.Contact{})
 	if err != nil {
 		log.Fatal(err)
 		return
@@ -64,9 +64,19 @@ func Upgrade(target, upgradable, num, name string, nums []string) {
 		log.Fatal(err)
 		return
 	}
-	fmt.Println(string(pu))
 	DoReq("http://localhost:8080", fmt.Sprintf("/update/%s", upgradable), http.MethodPost, pu)
 	// find contact in db and change its info using JSONObject
+}
+
+func Search(name string) {
+	contact := &models.Contact{Name: name}
+	object := &models.Entries{}
+	pu, err := models.PackingEntries(object, contact)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	DoReq("http://localhost:8080", "/search", http.MethodPost, pu)
 }
 
 // making request and get result from server side
@@ -74,6 +84,7 @@ func Upgrade(target, upgradable, num, name string, nums []string) {
 // uri example </targetfunction>
 func DoReq(url, uri, method string, body []byte) {
 	req, err := http.NewRequest(method, fmt.Sprintf("%s%s", url, uri), bytes.NewBuffer(body))
+	req.Header.Set("Content-Type", "application/json")
 	if err != nil {
 		log.Fatal(err)
 	}
