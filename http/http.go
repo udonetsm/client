@@ -84,7 +84,8 @@ func Search(name string) {
 // uri example </targetfunction>
 func DoReq(url, uri, method string, body []byte) {
 	req, err := http.NewRequest(method, fmt.Sprintf("%s%s", url, uri), bytes.NewBuffer(body))
-	req.Header.Set("Content-Type", "application/json")
+	req.Header.Add("Accept", "application/json")
+	req.Header.Add("Content-Type", "application/json")
 	if err != nil {
 		log.Fatal(err)
 	}
